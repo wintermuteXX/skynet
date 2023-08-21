@@ -1,6 +1,6 @@
 # AutoScreep Starter Bot
 
-AutoScreep Starter Bot is designed to provide a solid foundation for your Screeps AI bot development. It serves as a base bot architecture, offering essential components such as task management and spawning systems. While it may not boast advanced AI capabilities out of the box, it lays the groundwork for your bot's growth and optimization. With AutoScreep Starter Bot, you can jumpstart your Screeps AI journey and build upon this robust foundation to create a bot tailored to your specific needs and objectives.
+This is a fork from AutoScreep Starter Bot. Lets call him Skynet, because I have very limited sense of humor.
 
 ## Features
 
@@ -26,27 +26,11 @@ Creep and Room Services provide task managers with efficient access to query for
 
 Prototypes allow you to expand the capabilities of regular Game objects with extra behaviors or optimizations.
 
-## Getting Started
-
-To get started with AutoScreep Starter Bot, ensure you have installed:
-
-- [Node.js](https://nodejs.org/en/download) (LTS recommended)
-
-### Installation
-
-1. Download and extract or clone the source code to a folder of your choice.
-
-2. Open your terminal and navigate to the project folder.
-
-3. Run `npm install` (or `yarn`) to install the required packages and TypeScript declaration files
-
 ### Rollup and Code Upload
 
 AutoScreep Starter Bot utilizes Rollup to compile your TypeScript code and upload it to a Screeps server.
 
-1. Move or copy `screeps.sample.json` to `screeps.json` and edit the file, providing your Screeps credentials. Optionally, you can add or remove some of the destinations based on your requirements.
-
-2. The `package.json` includes NPM scripts that serve as aliases for the Rollup commands. For example, running `npm run push-main` will build and push using the "main" destination in your `screeps.json` file.
+The `package.json` includes NPM scripts that serve as aliases for the Rollup commands. For example, running `npm run push-main` will build and push using the "main" destination in your `screeps.json` file.
 
 Note: For uploading code to a private server, you must have [screepsmod-auth](https://github.com/ScreepsMods/screepsmod-auth) installed and configured.
 
