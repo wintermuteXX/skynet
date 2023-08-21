@@ -1,4 +1,4 @@
-# AutoScreep Starter Bot
+# Skynet
 
 This is a fork from AutoScreep Starter Bot. Lets call him Skynet, because I have very limited sense of humor.
 
