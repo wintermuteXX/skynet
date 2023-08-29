@@ -15,4 +15,5 @@ interface Room {
   getSpawn(): StructureSpawn | undefined;
   getSources(): Source[];
   getMineral(): Mineral | null;
+  countFreePositions(rp:RoomPosition): number;
 }

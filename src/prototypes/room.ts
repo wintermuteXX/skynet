@@ -29,3 +29,23 @@ Room.prototype.getMineral = function () {
   }
   return this._mineral;
 };
+
+Room.prototype.countFreePositions = function(rp: RoomPosition) {
+	let freeSpaceCount: number = 0;
+  let terrain = new Room.Terrain(rp.roomName);
+	[rp.x - 1, rp.x, rp.x + 1].forEach((x) => {
+		[rp.y - 1, rp.y, rp.y + 1].forEach((y) => {
+			if (!(x == rp.x && rp.y == y)) {
+				if (terrain.get(rp.x, rp.y) !== TERRAIN_MASK_WALL) freeSpaceCount++;
+			}
+		}, rp);
+	}, rp);
+	return freeSpaceCount;
+};
+
+Room.prototype.toString = function (htmlLink = true) {
+	if (htmlLink) {
+		return `<a href="#!/room/${Game.shard.name}/${this.name}">[${this.name}]</a>`;
+	}
+	return `[(${this.name}) #${this.name}]`;
+};
