@@ -28,6 +28,12 @@ export default {
     resolve({ rootDir: 'src' }),
     commonjs(),
     typescript({ tsconfig: './tsconfig.json' }),
-    screeps({ config: cfg, dryRun: cfg == null })
+    screeps({ config: cfg, dryRun: cfg == null }),
+    replace({
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      __BUILD_TIME__: Date.now(),
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      __REVISION__: git.short(),
+    }),
   ]
 };
