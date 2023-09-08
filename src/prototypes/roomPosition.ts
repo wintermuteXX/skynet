@@ -2,6 +2,19 @@
  * Room Position prototypes
  */
 
+RoomPosition.prototype.countFreePositions = function() {
+	let freeSpaceCount: number = 0;
+  let terrain = new Room.Terrain(this.roomName);
+	[this.x - 1, this.x, this.x + 1].forEach((x) => {
+		[this.y - 1, this.y, this.y + 1].forEach((y) => {
+			if (!(x == this.x && this.y == y)) {
+				if (terrain.get(this.x, this.y) !== TERRAIN_MASK_WALL) freeSpaceCount++;
+			}
+		}, this);
+	}, this);
+	return freeSpaceCount;
+};
+
 RoomPosition.prototype.toString = function (htmlLink = true, id = undefined) {
 	if (htmlLink) {
 		var onClick = "";

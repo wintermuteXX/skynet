@@ -30,18 +30,64 @@ Room.prototype.getMineral = function () {
   return this._mineral;
 };
 
-Room.prototype.countFreePositions = function(rp: RoomPosition) {
-	let freeSpaceCount: number = 0;
-  let terrain = new Room.Terrain(rp.roomName);
-	[rp.x - 1, rp.x, rp.x + 1].forEach((x) => {
-		[rp.y - 1, rp.y, rp.y + 1].forEach((y) => {
-			if (!(x == rp.x && rp.y == y)) {
-				if (terrain.get(rp.x, rp.y) !== TERRAIN_MASK_WALL) freeSpaceCount++;
+Room.prototype.hostiles = function() {
+		if (!this._hostiles) {
+			this._hostiles = this.find(FIND_HOSTILE_CREEPS);
+		}
+		return this._hostiles;
+}
+
+Room.prototype.invaders = function() {
+		if (!this._invaders) {
+			this._invaders = _.filter(this.hostiles, (creep: Creep) => creep.owner.username == 'Invader');
+		}
+		return this._invaders;
+}
+
+Room.prototype.sourceKeepers = function() {
+		if (!this._sourceKeepers) {
+			this._sourceKeepers = _.filter(this.hostiles, (creep: Creep) => creep.owner.username == 'Source Keeper');
+		}
+		return this._sourceKeepers;
+}
+
+Room.prototype.playerHostiles = function() {
+		if (!this._playerHostiles) {
+			this._playerHostiles = _.filter(this.hostiles,
+											(creep: Creep) => creep.owner.username != 'Invader'
+															  && creep.owner.username != 'Source Keeper');
+		}
+		return this._playerHostiles;
+}
+
+Room.prototype.dangerousHostiles = function() {
+		if (!this._dangerousHostiles) {
+			if (this.my) {
+				this._dangerousHostiles = _.filter(this.hostiles,
+												   (creep: Creep) => creep.getActiveBodyparts(ATTACK) > 0
+																	 || creep.getActiveBodyparts(WORK) > 0
+																	 || creep.getActiveBodyparts(RANGED_ATTACK) > 0
+																	 || creep.getActiveBodyparts(HEAL) > 0);
+			} else {
+				this._dangerousHostiles = _.filter(this.hostiles,
+												   (creep: Creep) => creep.getActiveBodyparts(ATTACK) > 0
+																	 || creep.getActiveBodyparts(RANGED_ATTACK) > 0
+																	 || creep.getActiveBodyparts(HEAL) > 0);
 			}
-		}, rp);
-	}, rp);
-	return freeSpaceCount;
-};
+		}
+		return this._dangerousHostiles;
+}
+
+Room.prototype.dangerousPlayerHostiles = function() {
+		if (!this._dangerousPlayerHostiles) {
+			this._dangerousPlayerHostiles = _.filter(this.playerHostiles,
+													 (c: Creep) => c.getActiveBodyparts(ATTACK) > 0
+																   || c.getActiveBodyparts(WORK) > 0
+																   || c.getActiveBodyparts(RANGED_ATTACK) > 0
+																   || c.getActiveBodyparts(HEAL) > 0);
+		}
+		return this._dangerousPlayerHostiles;
+}
 
 Room.prototype.toString = function (htmlLink = true) {
 	if (htmlLink) {

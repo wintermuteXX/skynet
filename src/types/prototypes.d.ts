@@ -11,9 +11,18 @@ interface Creep {
 }
 
 interface Room {
+  hostiles: () => Creep[];
+  invaders: () => Creep[];
+  sourceKeepers: () => Creep[];
+  playerHostiles: () => Creep[];
+  dangerousHostiles: () => Creep[];
+  dangerousPlayerHostiles: () => Creep[];
   getMySpawns(): StructureSpawn[];
   getSpawn(): StructureSpawn | undefined;
   getSources(): Source[];
   getMineral(): Mineral | null;
-  countFreePositions(rp:RoomPosition): number;
+}
+
+interface RoomPosition {
+  countFreePositions(): number;
 }
