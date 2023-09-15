@@ -36,9 +36,8 @@ export class HarvestMineralManager extends Manager {
   }
 
   private organizeMineralHarvesting(room: Room) {
-    const mineralSource = room.getMineralSourceID();
-      this.orderMineralHarvesters(room, mineralSource, room.name);
-
+    const mineralSource = room.getMineralID();
+    this.orderMineralHarvesters(room, mineralSource, room.name);
   }
 
   private orderMineralHarvesters(room: Room, mineralId: string, sourceRoom: string) {

@@ -99,15 +99,21 @@ Room.prototype.dangerousPlayerHostiles = function () {
   return this._dangerousPlayerHostiles;
 };
 
-Room.prototype.getMineralSourceID = function () {
-  if (this._mineral) return this._mineral
+Room.prototype.getMineralID = function () {
+  if (this._mineralID) return this._mineralID;
+  if (this.memory.MID) return this.memory.MID;
 
-	if (this.memory.MID) return Game.getObjectById(this.memory.MID)
+  const mineral = this.find(FIND_MINERALS)[0];
+  this.memory.MID = mineral.id;
 
-	const mineral = this.find(FIND_MINERALS)[0]
-	this.memory.MID = mineral.id
+  return (this._mineralID = mineral.id);
+};
 
-	return (this._mineral = mineral)
+Room.prototype.getMineral = function () {
+  if (this._mineral) return this._mineral;
+  if (this.getMineralID) {
+    return (this._mineral = Game.getObjectById(this.getMineralID));
+  }
 };
 
 Room.prototype.toString = function (htmlLink = true) {

@@ -11,7 +11,7 @@ interface Creep {
 }
 
 interface Room {
-  getMineralSourceID(): Id<Mineral>;
+  getMineralID(): Id<Mineral>;
   hostiles: () => Creep[];
   invaders: () => Creep[];
   sourceKeepers: () => Creep[];
