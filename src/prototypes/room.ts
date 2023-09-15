@@ -99,6 +99,17 @@ Room.prototype.dangerousPlayerHostiles = function () {
   return this._dangerousPlayerHostiles;
 };
 
+Room.prototype.getMineralSourceID = function () {
+  if (this._mineral) return this._mineral
+
+	if (this.memory.MID) return Game.getObjectById(this.memory.MID)
+
+	const mineral = this.find(FIND_MINERALS)[0]
+	this.memory.MID = mineral.id
+
+	return (this._mineral = mineral)
+};
+
 Room.prototype.toString = function (htmlLink = true) {
   if (htmlLink) {
     return `<a href="#!/room/${Game.shard.name}/${this.name}">[${this.name}]</a>`;
