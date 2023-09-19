@@ -6,6 +6,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import screeps from 'rollup-plugin-screeps-world';
+import replace from 'rollup-plugin-replace';
 
 let cfg;
 const dest = process.env.DEST;
@@ -31,9 +32,7 @@ export default {
     screeps({ config: cfg, dryRun: cfg == null }),
     replace({
       // eslint-disable-next-line @typescript-eslint/naming-convention
-      __BUILD_TIME__: Date.now(),
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      __REVISION__: git.short(),
-    }),
+      __BUILD_TIME__: Date.now()
+    })
   ]
 };
